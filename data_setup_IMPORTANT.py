@@ -6,7 +6,7 @@ import os
 import json
 
 # Define constants
-ROOT_PATH = "/storage/research/cinn_comp/ThalSR/zan/derivatives/test/casper"
+ROOT_PATH = "/storage/research/cinn_comp/ThalSR/zan/derivatives/test/casper" #rename this!!!!!
 MODALITY = "MR"
 BODY_PART_EXAMINED = "HEAD"
 MR_ACQUISIITON_TYPE = "3D"
