@@ -1,0 +1,3 @@
+#!/bin/bash
+
+singularity run -B ${PWD}:${PWD} -W ${PWD} -u --cleanenv /storage/research/cinn_comp/ThalSR/singularityContainers/thomas_e9a1a0e4463d.sif bash -c "thomas_csh_mv sub-0_desc-preproc_T1w.nii.gz"

@@ -59,12 +59,7 @@ for index,row in df.iterrows():
         "EchoTime": echo_time,
         "RepetitionTime": rep_time,
         "FlipAngle": flip_angle,
-        # "BaseResolution": 224,
-        # "PhaseEncodingSteps": 186,
-        # "AcquisitionMatrixPE": 186,
-        # "ReconMatrixPE": 186
-        "rows": "cols" #IMPORTANT!!! can replace the unknown values so just ignore those ^^
-        # maybe add age_at section too since age is a changing variable
+        "rows": "cols" 
     }
 
     # Write the object as json to the correct file
