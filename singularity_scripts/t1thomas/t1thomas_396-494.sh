@@ -9,5 +9,5 @@
 #SBATCH --array=396-494
 #SBATCH --partition=cinn
 
-echo "Running T1-THOMAS on sub-${SLURM_ARRAY_TASK_ID}" && cd /storage/research/cinn_comp/ThalSR/zan/derivatives/sing_prac/fmriprep/396-494/sub-${SLURM_ARRAY_TASK_ID}/anat && singularity run -B ${PWD}:${PWD} -W ${PWD} -u --cleanenv /storage/research/cinn_comp/ThalSR/singularityContainers/thomas_e9a1a0e4463d.sif bash -c "thomas_csh_mv sub-${SLURM_ARRAY_TASK_ID}_desc-preproc_T1w.nii.gz"
+echo "Running T1-THOMAS on sub-${SLURM_ARRAY_TASK_ID}" && cd /storage/research/cinn_comp/ThalSR/zan/derivatives/singularity_prep_seg/fmriprep/396-494/sub-${SLURM_ARRAY_TASK_ID}/anat && singularity run -B ${PWD}:${PWD} -W ${PWD} -u --cleanenv /storage/research/cinn_comp/ThalSR/singularityContainers/thomas_e9a1a0e4463d.sif bash -c "thomas_csh_mv sub-${SLURM_ARRAY_TASK_ID}_desc-preproc_T1w.nii.gz"
 

@@ -9,4 +9,5 @@
 #SBATCH --array=1-98
 #SBATCH --partition=cinn
 
+# Change /derivatives/sing_prac to /der*/singularity_prep_seg if need to run again
 echo "Running HIPS-THOMAS on sub-${SLURM_ARRAY_TASK_ID}" && cd /storage/research/cinn_comp/ThalSR/zan/derivatives/sing_prac/fmriprep/0-98/sub-${SLURM_ARRAY_TASK_ID}/anat && singularity run -B ${PWD}:${PWD} -W ${PWD} -u --cleanenv /storage/research/cinn_comp/ThalSR/singularityContainers/thomasmerged_8b4002e08cc5.sif bash -c "hipsthomas_csh -i sub-${SLURM_ARRAY_TASK_ID}_desc-preproc_T1w.nii.gz -t1 -big" 

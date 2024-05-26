@@ -1,2 +1,0 @@
-Running T1-THOMAS on sub-156
-/var/spool/slurm/d/job68182/slurm_script: line 12: cd: /storage/research/cinn_comp/ThalSR/zan/derivatives/sing_prac/fmriprep/0-98/sub-156/anat: No such file or directory
