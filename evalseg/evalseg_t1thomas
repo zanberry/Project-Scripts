@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Define top-level dir
+bind_dir=/storage/research/cinn_comp/ThalSR
+# Location of own dir
+zan_dir=${bind_dir}/zan
+
+# Set path to krauth-morel nuclei
+krauth_path=${bind_dir}/zan/derivatives/thal_nuclei/krauth-morel-nuclei
+# Set path to T1-THOMAS nuclei
+left_t1thomas_path=${bind_dir}/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-${SLURM_ARRAY_TASK_ID}/t1thomas/left
+right_t1thomas_path=${bind_dir}/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-${SLURM_ARRAY_TASK_ID}/t1thomas/right
+
+# Define subjects
+subs=${SLURM_ARRAY_TASK_ID}
+
+# This will execute eval.seg. on defined subjects
+for sub in ${subs}; do
+    for seg in "2" "4" "5" "6" "7" "8" "9" "10" "11" "12" ; do
+
+        # Get list of left krauth nuclei
+        cd ${krauth_path}/left && \
+        left_krauth=$(ls left_KM-${seg}_*.nii.gz) && \
+        cd ../../
+        # Get list of right krauth nuclei
+        cd ${krauth_path}/right && \
+        right_krauth=$(ls right_KM-${seg}_*.nii.gz) && \
+        cd ../../
+
+        # Left segmentation
+        for krauth in ${left_krauth}; do
+    
+            # Run for t1thomas
+            mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/left/ && \
+            /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/left/${krauth} ${left_t1thomas_path}/sub-${sub}_t1thomas_left-${seg}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/left/sub-${sub}_evalseg_left_KM-${seg}_T1-${seg}.xml -use AVGDIST
+        
+        done
+
+        # Right segmentation
+        for krauth in ${right_krauth}; do
+    
+            # Run for t1thomas
+            mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/right/ && \
+            /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/right/${krauth} ${right_t1thomas_path}/sub-${sub}_t1thomas_right-${seg}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/seg/sub-${sub}/t1thomas/right/sub-${sub}_evalseg_right_KM-${seg}_T1-${seg}.xml -use AVGDIST
+
+        done
+    done
+done

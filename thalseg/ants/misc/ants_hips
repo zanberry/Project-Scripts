@@ -1,0 +1,79 @@
+#!/bin/bash
+#SBATCH -J ANTSzan
+#SBATCH -N 1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem-per-cpu=4G
+#SBATCH --mail-user=sl009034@student.reading.ac.uk
+#SBATCH --mail-type=ALL
+#SBATCH --array=0-556
+#SBATCH --partition=cinn
+
+### Top-level project directory
+# Note: All other paths get defined in relation to this
+bind_dir=/storage/research/cinn_comp/ThalSR
+
+### Where does the singularity container live?
+simg=/storage/research/cinn_comp/ThalSR/singularityContainers/ants_2.5.1_20240429.simg
+
+### Where should output ROIs be saved?
+output_dir=/storage/research/cinn_comp/ThalSR/zan/derivatives/sing_fmriprep_krauth-morel/fmriprep/ants_output
+mkdir -m 775 -p ${output_dir}
+mkdir -m 775 -p ${output_dir}/sub-${SLURM_ARRAY_TASK_ID}
+
+### Define pathing for MNI ROIs
+# Where do the source ROIs (in MNI space) live?
+source_roi_dir=${bind_dir}/zan/derivatives/singularity_prep_seg/fmriprep/sub-${SLURM_ARRAY_TASK_ID}/anat/HIPS/left
+
+# What MNI ROIs should be warped into T1w space? HIPS-THOMAS NUCLEI
+warp_these=(\
+  2-AV.nii.gz\
+  4-VA.nii.gz\
+  5-VLa.nii.gz \
+  6-VLP.nii.gz \
+  7-VPL.nii.gz \
+  8-Pul.nii.gz \
+  9-LGN.nii.gz \
+  10-MGN.nii.gz \
+  11-CM.nii.gz \
+  12-MD-Pf.nii.gz \
+  13-Hb.nii.gz \
+  14-MTT.nii.gz
+)
+
+### Define pathing for fmriprep
+# Where's the fmriprep top-level directory?
+fmriprep_dir=${bind_dir}/zan/derivatives/sing_fmriprep_krauth-morel/fmriprep
+
+# Inside each fmriprep subject folder, where are the anatomical scans?
+anat_suffix=sub-${SLURM_ARRAY_TASK_ID}/anat
+
+# What's the name-stem for the T1w anatomical scan?
+t1w_suffix=_desc-preproc_T1w.nii.gz
+
+# What's the name-stem for the MNI-to-T1w transform matrix?
+trans_file_suffix=_from-T1w_to-MNI152NLin6Asym_mode-image_xfm.h5
+
+### Run ANTs - Remember to change the /left or /right dir in output to desired one
+for roi in ${warp_these[*]}
+do
+  singularity exec --bind ${bind_dir} ${simg} \
+  antsApplyTransforms \
+  -i ${source_roi_dir}/${roi} \
+  -r ${fmriprep_dir}/${anat_suffix}/sub-${SLURM_ARRAY_TASK_ID}${t1w_suffix} \
+  -t ["${fmriprep_dir}/${anat_suffix}/sub-${SLURM_ARRAY_TASK_ID}${trans_file_suffix}"] \
+  -n NearestNeighbor \
+  -o ${output_dir}/sub-${SLURM_ARRAY_TASK_ID}/sub-${SLURM_ARRAY_TASK_ID}_left_mni_${roi}
+done
+
+source_roi_dir=${bind_dir}/zan/derivatives/singularity_prep_seg/fmriprep/sub-${SLURM_ARRAY_TASK_ID}/anat/HIPS/right
+
+for roi in ${warp_these[*]}
+do
+  singularity exec --bind ${bind_dir} ${simg} \
+  antsApplyTransforms \
+  -i ${source_roi_dir}/${roi} \
+  -r ${fmriprep_dir}/${anat_suffix}/sub-${SLURM_ARRAY_TASK_ID}${t1w_suffix} \
+  -t ["${fmriprep_dir}/${anat_suffix}/sub-${SLURM_ARRAY_TASK_ID}${trans_file_suffix}"] \
+  -n NearestNeighbor \
+  -o ${output_dir}/sub-${SLURM_ARRAY_TASK_ID}/sub-${SLURM_ARRAY_TASK_ID}_right_mni_${roi}
+done

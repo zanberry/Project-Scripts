@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#SBATCH -J ANTStest
+#SBATCH -N 1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem-per-cpu=4G
+#SBATCH --mail-user=sl009034@student.reading.ac.uk
+#SBATCH --mail-type=ALL
+#SBATCH --array=0-1
+#SBATCH --partition=cinn
+
+echo "Running ANTs on sub-${SLURM_ARRAY_TASK_ID}" && cd /storage/research/cinn_comp/ThalSR/zan/derivatives/sing_fmriprep_krauth-morel/fmriprep/sub-${SLURM_ARRAY_TASK_ID}/anat && singularity run --cleanenv /storage/research/cinn_comp/ThalSR/singularityContainers/ants_2.5.1_20240429.simg antsApplyTransforms -d 3 -i /storage/research/cinn_comp/ThalSR/zan/derivatives/singularity_prep_seg/fmriprep/sub-0/anat/HIPS/left/thomasfull.nii.gz -r /storage/research/cinn_comp/ThalSR/zurich-atlas/MorelAtlasMNI152/MNI152_T1_1mm.nii.gz -t /storage/research/cinn_comp/ThalSR/zan/derivatives/sing_fmriprep_krauth-morel/fmriprep/sub-0/anat/sub-0_from-T1w_to-MNI152NLin6Asym_mode-image_xfm.h5 -n NearestNeighbor -o /storage/research/cinn_comp/ThalSR/zan/derivatives/sing_fmriprep_krauth-morel/fmriprep/ants_output/sub-0_left_mni1mm.nii.gz
+
+
+

@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# This script uses fslmaths to merge the krauth-morel thalamic nuclei according to the thalamic nuclei nomenclature proposed by Williams et al. 2024
+
+# Define main directory where krauth-morel nuclei were copied from the zurich atlas
+#main_dir=/home/users/sl009034/Desktop/Link to zan/derivatives/thal_nuclei/krauth_morel
+
+## Merge left krauth-morel nuclei ##
+# Move to left krauth-morel subfolder
+cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/zurich_krauth_morel/left-vols-1mm
+# VA
+fslmaths VAmc.nii.gz -add VApc.nii.gz -thr 0.95 -bin left_KM-4_VA.nii.gz
+# Vlp
+fslmaths VLpd.nii.gz -add VLpv.nii.gz -thr 0.95 -bin left_KM-6_Vlp.nii.gz 
+# VPL
+fslmaths VPLa.nii.gz -add VPLp.nii.gz -thr 0.95 -bin left_KM-7_VPL.nii.gz 
+# PuI
+fslmaths PuA.nii.gz -add PuI.nii.gz -add PuL.nii.gz -add PuM.nii.gz -thr 0.95 -bin left_KM-8_Pul.nii.gz
+# LGN
+fslmaths LGNmc.nii.gz -add LGNpc.nii.gz -thr 0.95 -bin left_KM-9_LGN.nii.gz
+# MD-Pf
+fslmaths Pf.nii.gz -add sPf.nii.gz -add MDmc.nii.gz -add MDpc.nii.gz -thr 0.95 -bin left_KM-12_MD-Pf.nii.gz
+
+## Merge right krauth-morel nuclei ##
+# Move to right krauth-morel subfolder
+cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/zurich_krauth_morel/right-vols-1mm
+# VA
+fslmaths VAmc.nii.gz -add VApc.nii.gz -thr 0.95 -bin right_KM-4_VA.nii.gz
+# Vlp
+fslmaths VLpd.nii.gz -add VLpv.nii.gz -thr 0.95 -bin right_KM-6_Vlp.nii.gz
+# VPL
+fslmaths VPLa.nii.gz -add VPLp.nii.gz -thr 0.95 -bin right_KM-7_VPL.nii.gz
+# PuI
+fslmaths PuA.nii.gz -add PuI.nii.gz -add PuL.nii.gz -add PuM.nii.gz -thr 0.95 -bin right_KM-8_Pul.nii.gz
+# LGN
+fslmaths LGNmc.nii.gz -add LGNpc.nii.gz -thr 0.95 -bin right_KM-9_LGN.nii.gz
+# MD-Pf
+fslmaths Pf.nii.gz -add sPf.nii.gz -add MDmc.nii.gz -add MDpc.nii.gz -thr 0.95 -bin right_KM-12_MD-Pf.nii.gz

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# This loops through selected subjects, and obtains individual nuclei from left and right thomasfull
+for sub in "0"; do
+    for seg in "2" "4" "5" "6" "7" "8" "9" "10" "11" "12"; do
+
+        ## T1-THOMAS
+        # Create a folder per subject for left nuclei
+        mkdir -p /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-0_thomasfull/left/ && \
+        thomasfull_left=/storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-0_thomasfull/left && \
+
+        # Obtain individual nuclei from left thomasfull
+        cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-0_thomasfull && \
+        fslmaths sub-0_mni_left_thomasfull.nii.gz -thr "${seg}" -uthr "${seg}" -bin ${thomasfull_left}/sub-${sub}_mni_t1thomas_left-${seg} && \
+        echo "Successfully ran fslmaths on left sub-${sub} thomasfull for nuclei-${seg}."
+
+
+        # Create a folder per subject for left nuclei
+        mkdir -p /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-0_thomasfull/right/ && \
+        thomasfull_right=/storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-0_thomasfull/right && \
+
+        # Obtain individual nuclei from right thomasrfull
+        cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-0_thomasfull && \
+        fslmaths sub-0_mni_right_thomasrfull.nii.gz -thr "${seg}" -uthr "${seg}" -bin ${thomasfull_right}/sub-${sub}_mni_t1thomas_right-${seg} && \
+        echo "Successfully ran fslmaths on right sub-${sub} thomasrfull for nuclei-${seg}." 
+
+    done
+done

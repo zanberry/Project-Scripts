@@ -1,0 +1,1 @@
+singularity run -B ${PWD}:${PWD} -W ${PWD} -u --cleanenv /storage/research/cinn_comp/ThalSR/singularityContainers/thomasmerged_8b4002e08cc5.sif bash -c "hipsthomas_csh -i sub-0_desc-preproc_T1w.nii.gz -t1 -big"
