@@ -1,8 +1,6 @@
 # Load libraries
 import pandas as pd
-import xlrd
 from pathlib import Path
-import shutil
 import os
 
 # Load FTHP_Metadata excel doc as a pandas dataframe
@@ -18,7 +16,7 @@ for index,row in df.iterrows():
     to_path = Path(f"/storage/research/cinn_comp/ThalSR/zan/derivatives/test/practice/sessionID/{session_id}/anat")
     
     # Loop through .nii files in specified folder
-    for file in pathlib.Path(r'/storage/research/cinn_comp/ThalSR/zan/FTHP/').glob("*.nii"):
+    for file in Path(r'/storage/research/cinn_comp/ThalSR/zan/FTHP/').glob("*.nii"):
         # Add prefix to .nii files
         dst = f"sub-001_ses-{session_id}_scan-{os.path.basename(file)}"
         # Rename existing files to new files with prefix
