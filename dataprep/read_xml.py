@@ -64,10 +64,9 @@ with open('metrics.csv', 'w', newline='') as file:
     # Define var to write inside csv
     writer = csv.writer(file)
     # Define var which is a list of col names
-    field = ["scanID","segmethod","hemisphere","nuclei","AVGDIST"]
+    field = ["scanID","segmethod","hemisphere","nuclei","AVGDIST","manufacturerCode","model","field"]
 
     # Write col names
     writer.writerow(field)
-
     # Write row values
     writer.writerows(infos)
