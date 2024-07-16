@@ -64,7 +64,7 @@ with open('fthp_metrics.csv', 'w', newline='') as file:
     # Define var to write inside csv
     writer = csv.writer(file)
     # Define var which is a list of col names
-    field = ["scanID","segmethod","hemisphere","nuclei","AVGDIST","manufacturerCode","model","field"]
+    field = ["scanID","segmethod","hemisphere","nuclei","AVGDIST"]
 
     # Write col names
     writer.writerow(field)
