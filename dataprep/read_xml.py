@@ -59,7 +59,7 @@ for sub in range(0,557):
                 infos.append(extract_info(path_to_right_xml))
 
 # Create and write in csv
-with open('metrics.csv', 'w', newline='') as file:
+with open('fthp_metrics.csv', 'w', newline='') as file:
     
     # Define var to write inside csv
     writer = csv.writer(file)
