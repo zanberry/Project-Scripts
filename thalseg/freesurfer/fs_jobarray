@@ -6,8 +6,9 @@
 #SBATCH --mem-per-cpu=8G
 #SBATCH --mail-user=sl009034@student.reading.ac.uk
 #SBATCH --mail-type=ALL
-#SBATCH --array=0-1
-#SBATCH --partition=cinn
+#SBATCH --array=7,110-556
+#SBATCH --partition=scavenger
+
 
 bash /storage/research/cinn_comp/ThalSR/zan/scripts/thalseg/freesurfer/fthp_fs
 
