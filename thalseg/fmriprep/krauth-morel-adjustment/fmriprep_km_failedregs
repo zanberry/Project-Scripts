@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#SBATCH -J fMRIprep
+#SBATCH -N 1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem-per-cpu=4G
+#SBATCH --mail-user=sl009034@student.reading.ac.uk
+#SBATCH --mail-type=ALL
+#SBATCH --array=8,15,20,24,49,86,102,166,170,181,222,241,246,292,299,302,334,399,468,474,514,526,546
+#SBATCH --partition=cinn
+
+
+export SINGULARITYENV_TEMPLATEFLOW_HOME=/templateflow
+
+singularity run --cleanenv -B /storage/research/cinn_comp/ThalSR/zan/derivatives/Freesurfer:/freesurfer -B /storage/research/cinn_comp/ThalSR/templateflow:/templateflow -B /storage/research/cinn_comp/ThalSR/zan/derivatives/sing_fmriprep_krauth-morel/tmp:/work -B /storage/research/cinn_comp/ThalSR/zan/derivatives/sing_fmriprep_krauth-morel/fmriprep/failedregs_rerun2:/out -B /storage/research/cinn_comp/ThalSR/zan/derivatives/FTHP_alt:/data /storage/research/cinn_comp/ThalSR/singularityContainers/fmriprep-23.1.4.simg /data /out participant --participant-label sub-$SLURM_ARRAY_TASK_ID -w /work --output-spaces MNI152NLin6Asym --mem_mb 56000 --omp-nthreads 10 --nthreads 14 --fs-license-file /freesurfer/license.txt --write-graph --low-mem --longitudinal --skip_bids_validation --ignore t2w --anat-only --fs-no-reconall
