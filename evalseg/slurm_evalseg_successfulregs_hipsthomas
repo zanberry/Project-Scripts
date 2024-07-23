@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#SBATCH -J evalseg
+#SBATCH -N 1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem-per-cpu=8G
+#SBATCH --mail-user=sl009034@student.reading.ac.uk
+#SBATCH --mail-type=ALL
+#SBATCH --array=51,90,204,212,231,237,249,255,285,318,357,370,448
+#SBATCH --partition=cinn
+
+bash /storage/research/cinn_comp/ThalSR/zan/scripts/evalseg/evalseg_hipsthomas
