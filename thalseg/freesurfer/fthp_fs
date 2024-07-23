@@ -7,7 +7,7 @@ SUBJECTS_DIR=/storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/free
 
 subjid=${SLURM_ARRAY_TASK_ID}
 
-t1img=/storage/research/cinn_comp/ThalSR/zan/derivatives/singularity_prep_seg/fmriprep/sub-${subjid}/anat/sub-${subjid}_desc-preproc_T1w.nii.gz
+t1img=/storage/research/cinn_comp/ThalSR/zan/derivatives/singularity_prep_seg_backup/fmriprep/sub-${subjid}/anat/sub-${subjid}_desc-preproc_T1w.nii.gz
 
 recon-all -s sub-${subjid} -i ${t1img} -all -cm
 segmentThalamicNuclei.sh sub-${subjid}
