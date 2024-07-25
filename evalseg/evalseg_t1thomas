@@ -16,33 +16,35 @@ subs=${SLURM_ARRAY_TASK_ID}
 
 # This will execute eval.seg. on defined subjects
 for sub in ${subs}; do
-    for seg in "2" "4" "5" "6" "7" "8" "9" "10" "11" "12" ; do
+    for seg1 in "2" "4" "5" "6" "7" "8" "9" "10" "11" "12" ; do
+        for seg2 in "2" "4" "5" "6" "7" "8" "9" "10" "11" "12" ; do
 
-        # Get list of left krauth nuclei
-        cd ${krauth_path}/left && \
-        left_krauth=$(ls left_KM-${seg}_*.nii.gz) && \
-        cd ../../
-        # Get list of right krauth nuclei
-        cd ${krauth_path}/right && \
-        right_krauth=$(ls right_KM-${seg}_*.nii.gz) && \
-        cd ../../
+            # Get list of left krauth nuclei
+            cd ${krauth_path}/left && \
+            left_krauth=$(ls left_KM-${seg1}_*.nii.gz) && \
+            cd ../../
+            # Get list of right krauth nuclei
+            cd ${krauth_path}/right && \
+            right_krauth=$(ls right_KM-${seg1}_*.nii.gz) && \
+            cd ../../
 
-        # Left segmentation
-        for krauth in ${left_krauth}; do
-    
-            # Run for t1thomas
-            mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/left/ && \
-            /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/left/${krauth} ${left_t1thomas_path}/sub-${sub}_t1thomas_left-${seg}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/left/sub-${sub}_evalseg_left_KM-${seg}_T1-${seg}.xml -use AVGDIST
+            # Left segmentation
+            for krauth in ${left_krauth}; do
         
-        done
+                # Run for t1thomas
+                mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/left/ && \
+                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/left/${krauth} ${left_t1thomas_path}/sub-${sub}_t1thomas_left-${seg1}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/left/sub-${sub}_evalseg_left_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
+            
+            done
 
-        # Right segmentation
-        for krauth in ${right_krauth}; do
-    
-            # Run for t1thomas
-            mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/right/ && \
-            /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/right/${krauth} ${right_t1thomas_path}/sub-${sub}_t1thomas_right-${seg}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/right/sub-${sub}_evalseg_right_KM-${seg}_T1-${seg}.xml -use AVGDIST
+            # Right segmentation
+            for krauth in ${right_krauth}; do
+        
+                # Run for t1thomas
+                mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/right/ && \
+                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/right/${krauth} ${right_t1thomas_path}/sub-${sub}_t1thomas_right-${seg1}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/right/sub-${sub}_evalseg_right_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
 
+            done
         done
     done
 done
