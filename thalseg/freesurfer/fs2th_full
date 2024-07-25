@@ -1,0 +1,23 @@
+#!/bin/tcsh
+# Extract thalamic labels from a FS mgz file 
+
+# Usage: fs2thomas <mgz file of segmentation>  <dirnamesuffix> <1=bilateral, default 0 left>
+if ($#argv < 1) then
+echo "Usage: fs2thomas <seg file mgz> <suffix for output dir> [opt: bilateral/unilateral not implemented]"
+exit 0
+endif
+
+#mri_extract_label $1 8103 8126 8128 8129 8133 8120 8121 8122 8123 8109 8115 8106 8112 8113 8118 left{$2}/1-THALAMUS.nii.gz 
+mri_extract_label $1 8103 8104 8105 8106 8108 8109 8110 8111 8112 8113 8115 8118 8120 8121 8122 8123 8126 8127 8128 8129 8130 8133 left{$2}/1-THALAMUS.nii.gz 
+
+foreach x (left{$2}/1-*.nii.gz)
+mri_binarize --i $x --min 0.1 --o $x 
+end
+
+#mri_extract_label $1 8203 8226 8228 8229 8233 8220 8221 8222 8223 8209 8215 8206 8212 8213 8218 right{$2}/1-THALAMUS.nii.gz 
+mri_extract_label $1 8203 8204 8205 8206 8208 8209 8210 8211 8212 8213 8215 8218 8220 8221 8222 8223 8226 8227 8228 8229 8230 8233 right{$2}/1-THALAMUS.nii.gz 
+
+foreach x (right{$2}/1-*.nii.gz)
+mri_binarize --i $x --min 0.1 --o $x 
+end
+

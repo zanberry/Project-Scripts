@@ -8,8 +8,3 @@
 #SBATCH --mail-type=ALL
 #SBATCH --array=0-556
 #SBATCH --partition=cinn
-
-
-bash /storage/research/cinn_comp/ThalSR/zan/scripts/thalseg/freesurfer/fthp_fs
-
-

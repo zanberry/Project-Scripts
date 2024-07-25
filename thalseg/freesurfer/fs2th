@@ -1,0 +1,43 @@
+#/bin/tcsh
+# Extract thalamic labels from a FS mgz file 
+
+# Usage: fs2th <mgz file of segmentation>  <dirnamesuffix> <1=bilateral, default 0 left>
+if ($#argv < 1) then
+echo "Usage: fs2thomas <seg file mgz> <suffix for output dir> [opt: bilateral/unilateral not implemented]"
+exit 0
+endif
+
+
+mkdir left{$2}
+mri_extract_label $1 8103 left{$2}/2-AV.nii.gz
+mri_extract_label $1 8126 8127 left{$2}/4-VA.nii.gz
+mri_extract_label $1 8128 left{$2}/5-VLa.nii.gz
+mri_extract_label $1 8129 left{$2}/6-VLP.nii.gz
+mri_extract_label $1 8133 left{$2}/7-VPL.nii.gz
+mri_extract_label $1 8120 8121 8122 8123 left{$2}/8-Pul.nii.gz
+mri_extract_label $1 8109 left{$2}/9-LGN.nii.gz
+mri_extract_label $1 8115 left{$2}/10-MGN.nii.gz
+mri_extract_label $1 8106 left{$2}/11-CM.nii.gz
+mri_extract_label $1 8112 8113 8118 left{$2}/12-MD-Pf.nii.gz 
+
+foreach x (left{$2}/*.nii.gz)
+mri_binarize --i $x --min 0.1 --o $x 
+end
+
+mkdir right{$2}
+mri_extract_label $1 8203 right{$2}/2-AV.nii.gz
+mri_extract_label $1 8226 8227 right{$2}/4-VA.nii.gz
+mri_extract_label $1 8228 right{$2}/5-VLa.nii.gz
+mri_extract_label $1 8229 right{$2}/6-VLP.nii.gz
+mri_extract_label $1 8233 right{$2}/7-VPL.nii.gz
+mri_extract_label $1 8220 8221 8222 8223 right{$2}/8-Pul.nii.gz
+mri_extract_label $1 8209 right{$2}/9-LGN.nii.gz
+mri_extract_label $1 8215 right{$2}/10-MGN.nii.gz
+mri_extract_label $1 8206 right{$2}/11-CM.nii.gz
+mri_extract_label $1 8212 8213 8218 right{$2}/12-MD-Pf.nii.gz 
+
+foreach x (right{$2}/*.nii.gz)
+mri_binarize --i $x --min 0.1 --o $x 
+end
+
+
