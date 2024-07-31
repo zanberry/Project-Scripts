@@ -7,7 +7,7 @@ zan_dir=${bind_dir}/zan
 
 # Set path to krauth-morel nuclei
 krauth_path=${bind_dir}/zan/derivatives/thal_nuclei/krauth-morel-nuclei
-# Set path to T1-THOMAS nuclei
+# Set path to HIPS-THOMAS nuclei
 left_hipsthomas_path=${bind_dir}/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-${SLURM_ARRAY_TASK_ID}/hipsthomas/left
 right_hipsthomas_path=${bind_dir}/zan/derivatives/thal_nuclei/space_correction/ants_output/sub-${SLURM_ARRAY_TASK_ID}/hipsthomas/right
 
@@ -33,7 +33,7 @@ for sub in ${subs}; do
         
                 # Run for hipsthomas
                 mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/hipsthomas/left/ && \
-                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/left/${krauth} ${left_hipsthomas_path}/sub-${sub}_hipsthomas_left-${seg1}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/hipsthomas/left/sub-${sub}_evalseg_left_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
+                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/left/${krauth} ${left_hipsthomas_path}/sub-${sub}_hipsthomas_left-${seg2}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/hipsthomas/left/sub-${sub}_evalseg_left_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
             
             done
 
@@ -42,7 +42,7 @@ for sub in ${subs}; do
         
                 # Run for hipsthomas
                 mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/hipsthomas/right/ && \
-                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/right/${krauth} ${right_hipsthomas_path}/sub-${sub}_hipsthomas_right-${seg1}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/hipsthomas/right/sub-${sub}_evalseg_right_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
+                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/right/${krauth} ${right_hipsthomas_path}/sub-${sub}_hipsthomas_right-${seg2}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/hipsthomas/right/sub-${sub}_evalseg_right_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
 
             done
         done

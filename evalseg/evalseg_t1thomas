@@ -33,7 +33,7 @@ for sub in ${subs}; do
         
                 # Run for t1thomas
                 mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/left/ && \
-                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/left/${krauth} ${left_t1thomas_path}/sub-${sub}_t1thomas_left-${seg1}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/left/sub-${sub}_evalseg_left_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
+                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/left/${krauth} ${left_t1thomas_path}/sub-${sub}_t1thomas_left-${seg2}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/left/sub-${sub}_evalseg_left_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
             
             done
 
@@ -42,7 +42,7 @@ for sub in ${subs}; do
         
                 # Run for t1thomas
                 mkdir -p ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/right/ && \
-                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/right/${krauth} ${right_t1thomas_path}/sub-${sub}_t1thomas_right-${seg1}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/right/sub-${sub}_evalseg_right_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
+                /storage/research/cinn_comp/ThalSR/EvalSegToolbox/EvaluateSegmentation_CentOS /${krauth_path}/right/${krauth} ${right_t1thomas_path}/sub-${sub}_t1thomas_right-${seg2}.nii.gz -xml ${zan_dir}/derivatives/evalseg_output/sub-${sub}/t1thomas/right/sub-${sub}_evalseg_right_KM-${seg1}_T1-${seg2}.xml -use AVGDIST -unit millimeter
 
             done
         done
