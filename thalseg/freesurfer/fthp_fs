@@ -9,5 +9,5 @@ subjid=${SLURM_ARRAY_TASK_ID}
 
 t1img=/storage/research/cinn_comp/ThalSR/zan/derivatives/fmriprep_MNI152NLin2009cAsym/fmriprep/sub-${subjid}/anat/sub-${subjid}_desc-preproc_T1w.nii.gz
 
-recon-all -s sub-${subjid} -i ${t1img} -all -cm
+recon-all -cw256 -s sub-${subjid} -i ${t1img} -all -cm 
 segmentThalamicNuclei.sh sub-${subjid}

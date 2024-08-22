@@ -2,9 +2,6 @@
 
 # This script uses fslmaths to merge the krauth-morel thalamic nuclei according to the thalamic nuclei nomenclature proposed by Williams et al. 2024
 
-# Define main directory where krauth-morel nuclei were copied from the zurich atlas
-#main_dir=/home/users/sl009034/Desktop/Link to zan/derivatives/thal_nuclei/krauth_morel
-
 ## Merge left krauth-morel nuclei ##
 # Move to left krauth-morel subfolder
 cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/zurich_krauth_morel/left-vols-1mm

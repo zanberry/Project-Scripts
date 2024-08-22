@@ -2,27 +2,19 @@
 
 #SBATCH -J fs_extract
 #SBATCH -N 1
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=8
 #SBATCH --mem-per-cpu=4G
 #SBATCH --mail-user=sl009034@student.reading.ac.uk
 #SBATCH --mail-type=ALL
 #SBATCH --array=0-556
 #SBATCH --partition=cinn
 
+
 export FREESURFER_HOME=/storage/research/cinn_comp/ThalSR/freesurfer
 source $FREESURFER_HOME/SetUpFreeSurfer.sh
 
-cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/freesurfer/sub-${SLURM_ARRAY_TASK_ID} && tcsh /storage/research/cinn_comp/ThalSR/zan/scripts/thalseg/freesurfer/fs2th ThalamicNuclei.v12.T1.nii.gz _nuclei && tcsh /storage/research/cinn_comp/ThalSR/zan/scripts/thalseg/freesurfer/fs2th_full ThalamicNuclei.v12.T1.nii.gz _nuclei
+cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/freesurfer_output_orig/sub-${SLURM_ARRAY_TASK_ID}/mri && tcsh /storage/research/cinn_comp/ThalSR/zan/scripts/thalseg/freesurfer/fs2th ThalamicNuclei.v12.T1.nii.gz _nuclei && tcsh /storage/research/cinn_comp/ThalSR/zan/scripts/thalseg/freesurfer/fs2th_full ThalamicNuclei.v12.T1.nii.gz _nuclei
 
-#cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/freesurfer/
-#subs=$(ls)
-
-#for sub in $subs; do
-#    cd ./$sub
-#    tcsh /storage/research/cinn_comp/ThalSR/zan/scripts/thalseg/freesurfer/fs2th ThalamicNuclei.v12.T1.nii.gz _nuclei
-#    tcsh /storage/research/cinn_comp/ThalSR/zan/scripts/thalseg/freesurfer/fs2th_full ThalamicNuclei.v12.T1.nii.gz _nuclei
-#    cd ..
-#done
 
 
 

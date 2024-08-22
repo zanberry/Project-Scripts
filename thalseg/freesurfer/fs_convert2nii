@@ -6,12 +6,12 @@
 #SBATCH --mem-per-cpu=4G
 #SBATCH --mail-user=sl009034@student.reading.ac.uk
 #SBATCH --mail-type=ALL
-#SBATCH --array=2-556
-#SBATCH --partition=cinn
+#SBATCH --array=0-556
+
 
 #This will attempt to convert .mgz thalamus files in sub-0 and sub-1 to .nii
 
 export FREESURFER_HOME=/storage/research/cinn_comp/ThalSR/freesurfer
 source $FREESURFER_HOME/SetUpFreeSurfer.sh
 
-cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/freesurfer/sub-${SLURM_ARRAY_TASK_ID}/mri && mri_convert ThalamicNuclei.v12.T1.mgz ThalamicNuclei.v12.T1.nii.gz && echo "Sub-${SLURM_ARRAY_TASK_ID} changed from .mgz to .nii"
+cd /storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/freesurfer_output_orig/sub-${SLURM_ARRAY_TASK_ID}/mri && mri_convert ThalamicNuclei.v12.T1.mgz ThalamicNuclei.v12.T1.nii.gz && echo "Sub-${SLURM_ARRAY_TASK_ID} changed from .mgz to .nii"

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#SBATCH -J freesurfer
+#SBATCH -N 1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem-per-cpu=8G
+#SBATCH --mail-user=sl009034@student.reading.ac.uk
+#SBATCH --mail-type=ALL
+
+export FREESURFER_HOME=/storage/research/cinn_comp/ThalSR/freesurfer
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
+
+SUBJECTS_DIR=/storage/research/cinn_comp/ThalSR/zan/derivatives/thal_nuclei/freesurfer_output
+
+subjid=6
+
+t1img=/storage/research/cinn_comp/ThalSR/zan/derivatives/fmriprep_MNI152NLin2009cAsym/fmriprep/sub-${subjid}/anat/sub-${subjid}_desc-preproc_T1w.nii.gz
+
+recon-all -s sub-${subjid} -i ${t1img} -cw256 -all -cm 
+segmentThalamicNuclei.sh sub-${subjid}

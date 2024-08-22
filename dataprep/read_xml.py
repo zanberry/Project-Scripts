@@ -8,7 +8,7 @@ import os
 ROOT = "/storage/research/cinn_comp/ThalSR/zan/derivatives/evalseg_output"
 NUCLEI_LIST_1 = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 NUCLEI_LIST_2 = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-SEG_LIST = ["t1thomas", "hipsthomas"]
+SEG_LIST = ["t1thomas", "hipsthomas", "freesurfer"]
 
 # Extracts relevant information from the .xml file
 def extract_avgdist(filepath):
@@ -58,7 +58,7 @@ for sub in range(0,557):
 print(set(missingsubs))
 
 # Create and write in csv
-with open('fthp_metrics.csv', 'w', newline='') as file:
+with open('fthp_metrics_wfreesurfer.csv', 'w', newline='') as file:
     
     # Define var to write inside csv
     writer = csv.writer(file)
